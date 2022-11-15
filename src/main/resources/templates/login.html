@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+<h1>Login</h1>
+<h2>(or sign up <a href="/signup">here</a>)</h2>
+<div class="col-auto">
+    <form action="/login" method="POST">
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" class="form-control" name="userName">
+
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" name="password">
+        </div>
+
+        <button type="submit" class="btn btn-outline-success">Log In</button>
+
+    </form>
+</div>
+</body>
+</html>
