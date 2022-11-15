@@ -1,25 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+    <meta charset="UTF-8">
+    <title>Sign up</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Sign Up!</h1>
-<form action="/signup" method="post">
-  <label>Username</label>
-  <input type="text" name="username">
+<div class="col-auto">
+    <form action="/signup" method="post">
 
-  <br>
-  <label>First Name</label>
-  <input type="text" name="firstName">
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" class="form-control" name = "username">
+            <small id="emailHelp" class="form-text text-muted">The user handle.</small>
+        </div>
+        <div class="form-group">
+            <label>First name</label>
+            <input type="text" class="form-control" name="firstName">
+        </div>
 
-  <br>
-  <label>Password</label>
-  <input type="password" name="password">
+        <div class="form-group">
+            <label>Last name</label>
+            <input type="text" class="form-control" name="lastName">
+        </div>
 
+        <div class="form-group">
+            <label>Role</label>
+            <input type="text" class="form-control" name="role">
+        </div>
 
-  <input type="submit" value="Sign Up">
-</form>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" name="password" placeholder="4 letters minimum">
+        </div>
+
+        <button  type="submit" class="btn btn-outline-primary btn-lg">Sign Up</button>
+    </form>
+</div>
 </body>
 </html>

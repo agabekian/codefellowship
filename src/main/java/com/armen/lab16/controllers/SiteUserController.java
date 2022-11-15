@@ -3,6 +3,7 @@ package com.armen.lab16.controllers;
 import com.armen.lab16.models.SiteUser;
 import com.armen.lab16.repositories.SiteUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +40,8 @@ public class SiteUserController {
 
             m.addAttribute("username", username);
             m.addAttribute("fName", foundUser.getFirstName());
+            m.addAttribute("lName", foundUser.getLastName());
+            m.addAttribute("role",foundUser.getRole());
         }
         return "index";
     }
@@ -59,11 +62,12 @@ public class SiteUserController {
     }
 
     @PostMapping("/signup")
-    public RedirectView createUser(String username, String password, String firstName){
+    public RedirectView createUser(String username, String password, String firstName, String lastName, String role){
         // hash the PW
+
         String hashedPW = passwordEncoder.encode(password);
         // create new user
-        SiteUser newUser = new SiteUser(username, hashedPW, firstName);
+        SiteUser newUser = new SiteUser(username, hashedPW, firstName, lastName, role);
         // save the user
         siteUserRepo.save(newUser);
         // auto login -> httpServletRequest
