@@ -27,9 +27,6 @@ public class SiteUserController {
     @Autowired
     HttpServletRequest request;
 
-
-    // What if someone is logged in?
-    // Message! Welcome to home page: {username}
     // GET to "/" return index.html
     // Principal == Http session
     @GetMapping("/")
@@ -64,14 +61,13 @@ public class SiteUserController {
     @PostMapping("/signup")
     public RedirectView createUser(String username, String password, String firstName, String lastName, String role){
         // hash the PW
-
         String hashedPW = passwordEncoder.encode(password);
         // create new user
         SiteUser newUser = new SiteUser(username, hashedPW, firstName, lastName, role);
         // save the user
         siteUserRepo.save(newUser);
         // auto login -> httpServletRequest
-        authWithHttpServletRequest(username, password);
+        authWithHttpServletRequest(username, password); //automagic security below
         return new RedirectView("/");
     }
 
@@ -82,7 +78,6 @@ public class SiteUserController {
             e.printStackTrace();
         }
     }
-
     // logout
     // POST
     // invalidate the session
