@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+<h3 th:if="${username}" th:text="${'Loggedin User: ' + username + ' with first name: ' + fName}"></h3>
+<h1>this is index entry</h1>
+<a th:if="${username}" href="/logout">Logout</a>
+<a th:if="!${username}" href="/login">Log In</a>
+<br>
+<a th:if="!${username}">Sign Up</a>
+</body>
+</html>
