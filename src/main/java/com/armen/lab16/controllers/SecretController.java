@@ -24,6 +24,7 @@ public class SecretController {
             m.addAttribute("userName", userName);
             SiteUser siteUser = siteUserRepo.findByUsername(userName);
             m.addAttribute("secrets", siteUser.getFirstName());
+
             return "recipes";
         }
         return "login.html";

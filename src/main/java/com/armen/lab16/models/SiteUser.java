@@ -24,7 +24,7 @@ public class SiteUser implements UserDetails {
     private String firstName;
     private String lastName;
     private String role;
-
+//    private Date dob;
 
 
     protected SiteUser() {
@@ -109,7 +109,6 @@ public class SiteUser implements UserDetails {
     public void setRole(String role) {
         this.role = role;
     }
-
 
 
 }

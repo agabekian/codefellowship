@@ -12,7 +12,8 @@
 
 <div class="col-auto">
     <div class="text-center corner">
-        <a th:if="${username}" href="/logout">Logout</a>
+        <a th:if="${username}" href="/logout">Logout</a> <!--  Tis everthning Spring needs to wipe the session and log u out-->
+
         <a th:if="!${username}" href="/login">Log In</a>
         <br>
         <a th:if="!${username}">Sign Up</a>
