@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h3 th:if="${username}" th:text="${'Welcome to your dashboard, '+username}"></h3>
+
+    <div class="text-center corner">
+      <a th:if="${username}" href="/logout">Logout</a>
+      <!--  Tis everthning Spring needs to wipe the session and log u out-->
+
+      <a th:if="!${username}" href="/login">Log In</a>
+      <br>
+      <a th:if="!${username}">Sign Up</a>
+
+    </div>
+    <form action="/messages" method="post">
+        <fieldset>
+            <legend>Post message</legend>
+            <label >name</label>
+            <input type="text" name="name">
+            <label>text</label>
+            <input type="text-area" name="body">
+
+
+            <input type="hidden" name="username" th:value="${username}"/>
+            <input type="submit" value="post message">
+        </fieldset>
+    </form>
+</body>
+</html>

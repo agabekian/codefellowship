@@ -12,7 +12,7 @@
 
 <h3 th:if="${username}" th:text="${username}"></h3>
 
-<form th:action="${'/users/'+ viewUserId}" th:method="PUT">
+<form th:action="${'/users/'+ id}" th:method="PUT">
     <label>Username</label>
     <input th:value="${targetUsername}" type="text" name="username"
            th:disabled="${!loggedUsername.equals(targetUsername)}">

@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.ServletException;
@@ -27,35 +29,35 @@ public class SiteUserController {
 
     @Autowired
     HttpServletRequest request;
-
-    // GET to "/" return index.html
     // Principal == Http session
-    @GetMapping("/")
+    @GetMapping("/myprofile")
     public String getHomePage(Model m, Principal p) {
         if (p != null) {
             String username = p.getName();
             SiteUser foundUser = siteUserRepo.findByUsername(username);
-
             m.addAttribute("username", username);
             m.addAttribute("fName", foundUser.getFirstName());
             m.addAttribute("lName", foundUser.getLastName());
             m.addAttribute("role", foundUser.getRole());
+            m.addAttribute("id", foundUser.getId());
         }
-        return "index";
+        return "profile";
+    }
+    @GetMapping("/")
+    public String greet(Model m, Principal p){
+        if (p != null) {
+            String username = p.getName();
+            SiteUser foundUser = siteUserRepo.findByUsername(username);
+            m.addAttribute("username", username);
+        }
+        return "dashboard";
     }
 
-    // Login
-    // POST -> not with Spring Security
-    // GET return login.html
     @GetMapping("/login")
     public String getLoginPage() {
         return "login";
     }
 
-    // signup
-    // POST
-    // save a new user into DB with Hashed PW
-    // Handle session?
     @GetMapping("/signup")
     public String getSignupPage() {
         return "signup";
@@ -99,7 +101,23 @@ public class SiteUserController {
         m.addAttribute("targetFirstName",targetUser.getFirstName());
         m.addAttribute("targetRole",targetUser.getRole());
         m.addAttribute("targetLastName",targetUser.getLastName());
+
         return "user-info";
+    }
+    @PutMapping("/users/{id}")
+    public RedirectView editUserInfo(Model m, Principal p, @PathVariable Long id, String username, String firstName, String lastName, String role, RedirectAttributes redir) throws ServletException {
+        SiteUser userToBeEdited = siteUserRepo.findById(id).orElseThrow();
+        if(p.getName().equals(userToBeEdited.getUsername())){
+            userToBeEdited.setUsername(username);
+            userToBeEdited.setFirstName(firstName);
+            userToBeEdited.setLastName(lastName);
+            userToBeEdited.setRole(role);
+            siteUserRepo.save(userToBeEdited);
+//            request.logout();
+        } else {
+            redir.addFlashAttribute("errorMessage", "Cannot edit another user's info");
+        }
+        return new RedirectView("/users/" + id);
     }
 
 

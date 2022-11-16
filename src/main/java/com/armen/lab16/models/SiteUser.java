@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 //TODO: Step1A: Make user model (NOT called "User"!)
 @Entity
@@ -26,7 +27,8 @@ public class SiteUser implements UserDetails {
     private String role;
 //    private Date dob;
 
-
+    @OneToMany(mappedBy = "theUser")
+    private List<Secret> userMessages;
     protected SiteUser() {
     }
 
@@ -109,6 +111,7 @@ public class SiteUser implements UserDetails {
     public void setRole(String role) {
         this.role = role;
     }
+
 
 
 }

@@ -12,7 +12,8 @@
 
 <div class="col-auto">
     <div class="text-center corner">
-        <a th:if="${username}" href="/logout">Logout</a> <!--  Tis everthning Spring needs to wipe the session and log u out-->
+        <a th:if="${username}" href="/logout">Logout</a>
+        <!--  Tis everthning Spring needs to wipe the session and log u out-->
 
         <a th:if="!${username}" href="/login">Log In</a>
         <br>
@@ -25,13 +26,15 @@
             <th>First name</th>
             <th>Last name</th>
             <th>Role</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:if="${username}">
-            <td th:text="${fName}">John Doe</td>
-            <td th:text="${lName}">John Doe</td>
-            <td th:text="${role}">John Doe</td>
+            <td th:text="${fName}">John</td>
+            <td th:text="${lName}">Doe</td>
+            <td th:text="${role}">Does</td>
+            <td><a th:href="@{/users/}+${id}" th:text="${fName}">LINK</a></td>
         </tr>
         </tbody>
     </table>

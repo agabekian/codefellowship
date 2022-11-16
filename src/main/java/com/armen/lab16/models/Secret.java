@@ -3,6 +3,7 @@ package com.armen.lab16.models;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Secret {
@@ -11,25 +12,34 @@ public class Secret {
     private Long id;
 
     private String name;
-    private String description;
+    private String body;
+
+
+    private Date createdAt;
     @ManyToOne
-    SiteUser siteUser;
+    SiteUser theUser;
 
     protected Secret(){}
+    public Secret(String name, String body, SiteUser theUser ) {
+        this.name = name;
+        this.body = body;
+        this.theUser = theUser;
+    }
+
 
     public String getName() {
         return name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getText() {
+        return body;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setBody(String description) {
+        this.body = body;
     }
 }
