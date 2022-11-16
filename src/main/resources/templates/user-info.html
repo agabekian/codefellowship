@@ -6,6 +6,10 @@
 </head>
 <body>
 <p>User InfoPage</p>
+
+<div th:replace="/fragments/nav-header :: site-user"></div>
+
+
 <h3 th:if="${username}" th:text="${username}"></h3>
 
 <form th:action="${'/users/'+ viewUserId}" th:method="PUT">

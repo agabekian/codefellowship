@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3 th:if="${loggedUsername}" th:text="${loggedUsername}+'cur user'"></h3>
+<nav th:if="${loggedUsername}" th:fragment="site-user" th:text="${loggedUsername}+'fragment of cur user'"></nav>
+</body>
+</html>
