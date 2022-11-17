@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/styles/index.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+</head>
+<body>
+<p>User InfoPage</p>
+
+<!--<div th:replace="/fragments/nav-header :: site-user"></div>-->
+<div th:replace="/fragments/nav-header"></div>
+
+
+<h3 th:if="${username}" th:text="${username}"></h3>
+<img src="@{${targetPhoto}}">
+
+<form th:action="${'/users/'+ id}" th:method="PUT">
+    <label>Username</label>
+    <input th:value="${targetUsername}" type="text" name="username"
+           th:disabled="${!loggedUsername.equals(targetUsername)}">
+    <label>First Name</label>
+    <input th:value="${targetFirstName}" type="text" name="firstName"
+           th:disabled="${!loggedUsername.equals(targetUsername)}">
+    <label>Last Name</label>
+    <input th:value="${targetLastName}" type="text" name="lastName"
+           th:disabled="${!loggedUsername.equals(targetUsername)}">
+    <label>Role</label>
+    <input th:value="${targetRole}" type="text" name="role" th:disabled="${!loggedUsername.equals(targetUsername)}">
+    <input th:if="${loggedUsername.equals(targetUsername)}" type="submit" value="Edit User Info">
+</form>
+</body>
+</html>

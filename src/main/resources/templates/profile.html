@@ -10,9 +10,12 @@
 <body>
 
 
+<div th:replace="/fragments/nav-header"></div>
 <div class="col-auto">
     <div class="text-center corner">
         <a th:if="${username}" href="/logout">Logout</a>
+        <!--  Tis everthning Spring needs to wipe the session and log u out-->
+
         <a th:if="!${username}" href="/login">Log In</a>
         <br>
         <a th:if="!${username}">Sign Up</a>
@@ -24,16 +27,27 @@
             <th>First name</th>
             <th>Last name</th>
             <th>Role</th>
+            <th>Photo</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:if="${username}">
-            <td th:text="${fName}">John Doe</td>
-            <td th:text="${lName}">John Doe</td>
-            <td th:text="${role}">John Doe</td>
+            <td th:text="${fName}">John</td>
+            <td th:text="${lName}">Doe</td>
+            <td th:text="${role}">Does</td>
+            <td><img th:src="@{${photo}}"></img></td>
+            <td colspan="2">
+                <a th:href="@{/users/}+${id}" th:text="${'Edit profile for '+fName}">edit</a>
+            </td>
+
+            <ul th:each="m: ${messages}">
+                <li th:text=" ${m.createdAt} + ' # '+${m.name} +'  '+ ${m.body}"></li>
+            </ul>
         </tr>
         </tbody>
     </table>
+
 
 </div>
 

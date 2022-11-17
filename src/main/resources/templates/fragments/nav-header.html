@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fragment</title>
+</head>
+<body>
+<div class="col">
+
+    <div th:style="${'color:red;'}">
+        <a th:href="@{/myprofile}">Profile -</a>
+        <a th:if="${username}" href="/logout"> - Logout</a>
+        <a th:if="${username}" href="/users/"> - User Info</a>
+    </div>
+
+</div>
+
+</body>
+</html>
