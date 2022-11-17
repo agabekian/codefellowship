@@ -19,27 +19,33 @@ public class SiteUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
     private String username;
     private String password;
     private String firstName;
     private String lastName;
     private String role;
+    private String photo;
 //    private Date dob;
 
     @OneToMany(mappedBy = "theUser")
     private List<Secret> userMessages;
-    protected SiteUser() {
-    }
+    protected SiteUser() {}
 
-
-    public SiteUser(String username, String password, String firstName, String lastName, String role) {
+    public SiteUser(String username, String password, String firstName, String lastName, String role, String photo) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
+        this.photo = photo;
+    }
 
+    public List<Secret> getUserMessages() {
+        return userMessages;
+    }
+
+    public void setUserMessages(List<Secret> userMessages) {
+        this.userMessages = userMessages;
     }
 
     public Long getId() {
@@ -111,7 +117,10 @@ public class SiteUser implements UserDetails {
     public void setRole(String role) {
         this.role = role;
     }
-
+    public String getPhoto() {
+        return photo;
+    }
+    public void setPhoto(String photo) {this.photo = photo;}
 
 
 }

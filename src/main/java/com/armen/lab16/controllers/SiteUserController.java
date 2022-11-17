@@ -1,7 +1,9 @@
 package com.armen.lab16.controllers;
 
+import com.armen.lab16.models.Secret;
 import com.armen.lab16.models.SiteUser;
 import com.armen.lab16.repositories.SiteUserRepo;
+import com.armen.lab16.repositories.SecretRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,11 +20,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class SiteUserController {
     @Autowired
     SiteUserRepo siteUserRepo;
+    @Autowired
+    SecretRepo secretRepo;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -40,6 +45,9 @@ public class SiteUserController {
             m.addAttribute("lName", foundUser.getLastName());
             m.addAttribute("role", foundUser.getRole());
             m.addAttribute("id", foundUser.getId());
+            m.addAttribute("photo",foundUser.getPhoto());
+            //######################user messages#####################
+            m.addAttribute("messages", foundUser.getUserMessages());
         }
         return "profile";
     }
@@ -64,11 +72,11 @@ public class SiteUserController {
     }
 
     @PostMapping("/signup")
-    public RedirectView createUser(String username, String password, String firstName, String lastName, String role) {
+    public RedirectView createUser(String username, String password, String firstName, String lastName, String role, String photo) {
         // hash the PW
         String hashedPW = passwordEncoder.encode(password);
         // create new user
-        SiteUser newUser = new SiteUser(username, hashedPW, firstName, lastName, role);
+        SiteUser newUser = new SiteUser(username, hashedPW, firstName, lastName, role, photo);
         // save the user
         siteUserRepo.save(newUser);
         // auto login -> httpServletRequest
@@ -101,6 +109,7 @@ public class SiteUserController {
         m.addAttribute("targetFirstName",targetUser.getFirstName());
         m.addAttribute("targetRole",targetUser.getRole());
         m.addAttribute("targetLastName",targetUser.getLastName());
+        m.addAttribute("targetLastName",targetUser.getPhoto());
 
         return "user-info";
     }
@@ -117,8 +126,7 @@ public class SiteUserController {
         } else {
             redir.addFlashAttribute("errorMessage", "Cannot edit another user's info");
         }
-        return new RedirectView("/users/" + id);
+        return new RedirectView("/myprofile");
     }
-
 
 }

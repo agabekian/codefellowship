@@ -10,6 +10,7 @@
 <body>
 
 
+<div th:replace="/fragments/nav-header"></div>
 <div class="col-auto">
     <div class="text-center corner">
         <a th:if="${username}" href="/logout">Logout</a>
@@ -26,6 +27,7 @@
             <th>First name</th>
             <th>Last name</th>
             <th>Role</th>
+            <th>Photo</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -34,10 +36,18 @@
             <td th:text="${fName}">John</td>
             <td th:text="${lName}">Doe</td>
             <td th:text="${role}">Does</td>
-            <td><a th:href="@{/users/}+${id}" th:text="${fName}">LINK</a></td>
+            <td><img th:src="@{${photo}}"></img></td>
+            <td colspan="2">
+                <a th:href="@{/users/}+${id}" th:text="${'Edit profile for '+fName}">edit</a>
+            </td>
+
+            <ul th:each="m: ${messages}">
+                <li th:text=" ${m.createdAt} + ' # '+${m.name} +'  '+ ${m.body}"></li>
+            </ul>
         </tr>
         </tbody>
     </table>
+
 
 </div>
 

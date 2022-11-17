@@ -13,6 +13,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -23,27 +25,11 @@ public class PostController {
     @Autowired
     SiteUserRepo siteUserRepo;
 
-    @GetMapping("/messages")
-    public String getMessage(HttpServletRequest req, Model m) {
-        HttpSession session = req.getSession();
-        String userName = session.getAttribute("userName").toString();
-        // authenticate the user
-        if (userName != null) {
-            List<Secret> messages = secretRepo.findAll();
-            m.addAttribute("messages",messages);
-//            m.addAttribute("userName", userName);
-//            SiteUser siteUser = siteUserRepo.findByUsername(userName);
-//            m.addAttribute("secrets", siteUser.getFirstName());
-            return "messages";
-        }
-        return "login.html";
-    }
-
     @PostMapping("/messages")
     public RedirectView createNewMessage(String name, String body, String username) {
         SiteUser theUser = siteUserRepo.findByUsername(username);
-        Secret newMessage = new Secret(name, body, theUser);
+        Secret newMessage = new Secret(name, body, theUser, new Date());
         secretRepo.save(newMessage);
-        return new RedirectView("/");
+        return new RedirectView("/myprofile");
     }
 }

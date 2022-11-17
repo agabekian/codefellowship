@@ -3,10 +3,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Fragment</title>
 </head>
 <body>
-<h3 th:if="${loggedUsername}" th:text="${loggedUsername}+'cur user'"></h3>
-<nav th:if="${loggedUsername}" th:fragment="site-user" th:text="${loggedUsername}+'fragment of cur user'"></nav>
+<div class="col">
+
+    <div th:style="${'color:red;'}">
+        <a th:href="@{/myprofile}">Profile -</a>
+        <a th:if="${username}" href="/logout"> - Logout</a>
+        <a th:if="${username}" href="/users/"> - User Info</a>
+    </div>
+
+</div>
+
 </body>
 </html>
